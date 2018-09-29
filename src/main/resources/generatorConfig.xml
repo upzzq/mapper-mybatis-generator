@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- 引入配置文件 -->
+  <!-- <properties resource="application.yml"/> -->
+
+	<!-- mapper.xml和接口不生成Example查询有关的内容  targetRuntime="MyBatis3Simple" defaultModelType="flat" -->
+  <context id="mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+  	<!-- 生成的Java文件的编码 -->
+    <property name="javaFileEncoding" value="utf-8"/>
+    
+    <!-- 通用Mapper代码生成插件 -->
+    <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+      <property name="mappers" value="cn.uinpay.msvc.pro.ykh.base.BaseMapper"/>
+      <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+      <property name="caseSensitive" value="true"/>
+    </plugin>
+    
+     <commentGenerator>
+     	<!-- 阻止生成的注释包含时间戳 -->
+		<property name="suppressDate" value="true"/>
+     </commentGenerator>
+
+	<!-- 数据库连接配置 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                    connectionURL="jdbc:mysql://192.168.3.59:3306/ykh"
+                    userId="root"
+                    password="Admin@123">
+    </jdbcConnection>
+    <!--  默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer   
+         true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal   
+     -->   
+    <javaTypeResolver >  
+    	<property name="forceBigDecimals" value="false" />  
+    </javaTypeResolver>  
+    
+	<!-- Entity 存放目录 -->
+    <javaModelGenerator targetPackage="cn.uinpay.msvc.pro.ykh.model" targetProject="src/main/java">
+    	<!-- Model setter方法去空格 -->
+    	<!-- <property name="trimStrings" value="true" /> -->
+    	<!-- 给Model添加一个父类 -->  
+        <!-- <property name="rootClass" value="cn.uinpay.msvc.pro.ydk.model.BasePojo"/> -->
+    </javaModelGenerator>
+    
+	<!-- Mapper.xml存放目录 -->
+    <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources"/>
+    
+	<!-- Mapper接口存放目录 -->
+    <javaClientGenerator targetPackage="cn.uinpay.msvc.pro.ykh.mapper" targetProject="src/main/java" type="XMLMAPPER" />
+
+	<!-- tableName:用于自动生成代码的数据库表 domainObjectName:对应于数据库表的javaBean类名 -->
+
+    
+    <table tableName="CCA_REPAYMENT_DETAIL">
+        <generatedKey column="REPAYMENT_DETAIL_ID" sqlStatement="select nextval('user_inf')" identity="false" type="pre" />
+      	<columnOverride column="REPAYMENT_DETAIL_ID" javaType="java.lang.Long"  jdbcType="DECIMAL" />  
+    </table>
+    
+    <table tableName="CCA_REPAYMENT_TASK" >
+        <generatedKey column="REPAYMENT_ID" sqlStatement="select nextval('user_inf')" identity="false" type="pre" />
+      	<columnOverride column="REPAYMENT_ID" javaType="java.lang.Long"  jdbcType="DECIMAL" />  
+    </table>
+    
+    
+
+	    
+  </context>
+</generatorConfiguration>
