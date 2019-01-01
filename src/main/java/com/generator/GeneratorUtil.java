@@ -12,6 +12,12 @@ import org.springframework.util.ResourceUtils;
 
 public class GeneratorUtil {
 
+	
+	
+	/**
+	 * maven: mybatis-generator:generate
+	 * @throws Exception
+	 */
 	public void generator() throws Exception{
 
 		List<String> warnings = new ArrayList<String>();

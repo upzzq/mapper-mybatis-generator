@@ -26,9 +26,9 @@
 
 	<!-- 数据库连接配置 -->
     <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                    connectionURL="jdbc:mysql://192.168.3.59:3306/ykh"
+                    connectionURL="jdbc:mysql://127.0.0.1:3306/ap"
                     userId="root"
-                    password="Admin@123">
+                    password="123456">
     </jdbcConnection>
     <!--  默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer   
          true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal   
@@ -54,15 +54,12 @@
 	<!-- tableName:用于自动生成代码的数据库表 domainObjectName:对应于数据库表的javaBean类名 -->
 
     
-    <table tableName="CCA_REPAYMENT_DETAIL">
-        <generatedKey column="REPAYMENT_DETAIL_ID" sqlStatement="select nextval('user_inf')" identity="false" type="pre" />
-      	<columnOverride column="REPAYMENT_DETAIL_ID" javaType="java.lang.Long"  jdbcType="DECIMAL" />  
+    <table tableName="sys_user">
+        <!-- <generatedKey column="REPAYMENT_DETAIL_ID" sqlStatement="select nextval('user_inf')" identity="false" type="pre" />
+      	<columnOverride column="REPAYMENT_DETAIL_ID" javaType="java.lang.Long"  jdbcType="DECIMAL" /> -->  
     </table>
     
-    <table tableName="CCA_REPAYMENT_TASK" >
-        <generatedKey column="REPAYMENT_ID" sqlStatement="select nextval('user_inf')" identity="false" type="pre" />
-      	<columnOverride column="REPAYMENT_ID" javaType="java.lang.Long"  jdbcType="DECIMAL" />  
-    </table>
+    
     
     
 
