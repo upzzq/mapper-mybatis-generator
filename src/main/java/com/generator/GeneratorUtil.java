@@ -8,6 +8,7 @@ import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ResourceUtils;
 
 public class GeneratorUtil {
@@ -23,7 +24,6 @@ public class GeneratorUtil {
 		List<String> warnings = new ArrayList<String>();
 		boolean overwrite = true;
 		//指定 逆向工程配置文件
-		//File configFile = new File("generatorConfig.xml"); 
 		File configFile = ResourceUtils.getFile("classpath:generatorConfig.xml");
 		ConfigurationParser cp = new ConfigurationParser(warnings);
 		Configuration config = cp.parseConfiguration(configFile);
@@ -31,6 +31,12 @@ public class GeneratorUtil {
 		MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config,
 				callback, warnings);
 		myBatisGenerator.generate(null);
+
+		if (warnings.isEmpty()) {
+			System.out.println("MyBatis文件生成成功！！");
+		} else {
+			System.out.println(warnings.toString());
+		}
 
 	} 
 	

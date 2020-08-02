@@ -14,9 +14,13 @@
     
     <!-- 通用Mapper代码生成插件 -->
     <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-      <property name="mappers" value="cn.uinpay.msvc.pro.ykh.base.BaseMapper"/>
+      <property name="mappers" value="com.maxxipoint.common.web.repository.mapper.BaseCommonMapper"/>
       <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
       <property name="caseSensitive" value="true"/>
+    </plugin>
+    <!-- 整合lombok-->
+    <plugin type="com.chrm.mybatis.generator.plugins.LombokPlugin" >
+      <property name="hasLombok" value="true"/>
     </plugin>
     
      <commentGenerator>
@@ -26,43 +30,55 @@
 
 	<!-- 数据库连接配置 -->
     <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                    connectionURL="jdbc:mysql://127.0.0.1:3306/ap"
+                    connectionURL="jdbc:mysql://192.168.205.141:3306/event"
                     userId="root"
-                    password="123456">
+                    password="12345">
     </jdbcConnection>
-    <!--  默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer   
-         true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal   
-     -->   
-    <javaTypeResolver >  
-    	<property name="forceBigDecimals" value="false" />  
-    </javaTypeResolver>  
+
+    <!-- java类型处理器
+            用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
+            注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型；
+        -->
+    <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+      <!--
+          true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+          false：默认,
+              scale>0;length>18：使用BigDecimal;
+              scale=0;length[10,18]：使用Long；
+              scale=0;length[5,9]：使用Integer；
+              scale=0;length<5：使用Short；
+       -->
+      <property name="forceBigDecimals" value="false"/>
+    </javaTypeResolver>
     
-	<!-- Entity 存放目录 -->
-    <javaModelGenerator targetPackage="cn.uinpay.msvc.pro.ykh.model" targetProject="src/main/java">
+	<!-- Entity 存放目录, idea使用绝对路径，eclipse使用相对路径 -->
+    <javaModelGenerator targetPackage="com.maxxipoint.event.web.menu.repository.entity" targetProject="D:\develop\GitWork\mapper-mybatis-generator\src\main\java">
     	<!-- Model setter方法去空格 -->
     	<!-- <property name="trimStrings" value="true" /> -->
     	<!-- 给Model添加一个父类 -->  
-        <!-- <property name="rootClass" value="cn.uinpay.msvc.pro.ydk.model.BasePojo"/> -->
+       <property name="rootClass" value="com.maxxipoint.common.web.repository.entity.BaseEntity"/>
     </javaModelGenerator>
     
-	<!-- Mapper.xml存放目录 -->
-    <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources"/>
+	<!-- Mapper.xml存放目录, idea使用绝对路径，eclipse使用相对路径 -->
+    <sqlMapGenerator targetPackage="mapper"  targetProject="D:\develop\GitWork\mapper-mybatis-generator\src\main\resources"/>
     
-	<!-- Mapper接口存放目录 -->
-    <javaClientGenerator targetPackage="cn.uinpay.msvc.pro.ykh.mapper" targetProject="src/main/java" type="XMLMAPPER" />
+	<!-- Mapper接口存放目录, idea使用绝对路径，eclipse使用相对路径-->
+    <javaClientGenerator targetPackage="com.maxxipoint.event.web.menu.repository.mapper" targetProject="D:\develop\GitWork\mapper-mybatis-generator\src\main\java" type="XMLMAPPER" />
 
 	<!-- tableName:用于自动生成代码的数据库表 domainObjectName:对应于数据库表的javaBean类名 -->
 
     
-    <table tableName="sys_user">
-        <!-- <generatedKey column="REPAYMENT_DETAIL_ID" sqlStatement="select nextval('user_inf')" identity="false" type="pre" />
-      	<columnOverride column="REPAYMENT_DETAIL_ID" javaType="java.lang.Long"  jdbcType="DECIMAL" /> -->  
-    </table>
-    
-    
-    
+   <!-- <table tableName="sys_user">
+        &lt;!&ndash; <generatedKey column="REPAYMENT_DETAIL_ID" sqlStatement="select nextval('user_inf')" identity="false" type="pre" />
+      	<columnOverride column="REPAYMENT_DETAIL_ID" javaType="java.lang.Long"  jdbcType="DECIMAL" /> &ndash;&gt;
+    </table>-->
+
+      <table tableName="tb_menu " domainObjectName="MenuEntity">
+        <columnOverride column="menu_type" javaType="java.lang.Integer" />
+      </table>
     
 
-	    
+
+
   </context>
 </generatorConfiguration>
